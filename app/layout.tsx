@@ -19,6 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <a href="/dashboard" className="hover:underline">
                 Dashboard
               </a>
+              <a href="/settings" className="hover:underline">
+                Settings
+              </a>
               <a href="/login" className="hover:underline">
                 Log in
               </a>
