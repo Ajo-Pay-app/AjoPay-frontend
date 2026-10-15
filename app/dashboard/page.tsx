@@ -3,13 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api, type Payment } from "@/lib/api";
-
-const statusColor: Record<Payment["status"], string> = {
-  PENDING: "bg-amber-100 text-amber-800",
-  PAID: "bg-emerald-100 text-emerald-800",
-  EXPIRED: "bg-slate-100 text-slate-600",
-  CANCELLED: "bg-red-100 text-red-700",
-};
+import StatCard from "@/components/StatCard";
+import PaymentStatusBadge from "@/components/PaymentStatusBadge";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -50,18 +45,9 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-3 gap-4">
-        <div className="card text-center">
-          <p className="text-sm text-slate-500">Paid</p>
-          <p className="text-2xl font-bold">{summary?.paidCount ?? "-"}</p>
-        </div>
-        <div className="card text-center">
-          <p className="text-sm text-slate-500">Pending</p>
-          <p className="text-2xl font-bold">{summary?.pendingCount ?? "-"}</p>
-        </div>
-        <div className="card text-center">
-          <p className="text-sm text-slate-500">Fiat earned</p>
-          <p className="text-2xl font-bold">{summary?.totalFiatEarned ?? "-"}</p>
-        </div>
+        <StatCard label="Paid" value={summary?.paidCount ?? "-"} />
+        <StatCard label="Pending" value={summary?.pendingCount ?? "-"} />
+        <StatCard label="Fiat earned" value={summary?.totalFiatEarned ?? "-"} />
       </div>
 
       <div className="card">
@@ -101,7 +87,7 @@ export default function DashboardPage() {
                   {p.currency} {p.amountFiat}
                 </td>
                 <td>
-                  <span className={`px-2 py-0.5 rounded-full text-xs ${statusColor[p.status]}`}>{p.status}</span>
+                  <PaymentStatusBadge status={p.status} />
                 </td>
                 <td>
                   <a href={`/checkout/${p.id}`} className="text-ajo-green underline text-xs">
