@@ -37,9 +37,19 @@ npm run dev   # http://localhost:3000
 - `NEXT_PUBLIC_SETTLEMENT_CONTRACT_ID` — from `AjoPay-Contract`
 - `NEXT_PUBLIC_STELLAR_NETWORK` — `TESTNET` or `PUBLIC`
 
+## Wallet Integration
+
+`lib/wallet.ts` wraps the [Freighter](https://www.freighter.app) browser extension
+(`@stellar/freighter-api`) for connecting a wallet and signing transactions.
+`components/ConnectWalletButton.tsx` is a drop-in connect button used on the
+settings page. The checkout page still uses a "simulate payment" demo button
+rather than a real signed `pay()` call — wiring that up (build the invocation
+XDR on the backend, sign it here, submit via Soroban RPC) is a good next step
+once you're comfortable with the current flow.
+
 ## Tech Stack
 
-Next.js 15, React 19, TypeScript, Tailwind CSS
+Next.js 15, React 19, TypeScript, Tailwind CSS, `@stellar/freighter-api`
 
 ## Status
 
